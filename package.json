@@ -1,0 +1,25 @@
+{
+  "name": "vue-tutorial",
+  "version": "1.0.0",
+  "description": "Vue-Tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielTimLee/vue-tutorial.git"
+  },
+  "keywords": [
+    "vue-tutorial"
+  ],
+  "author": "Daniel T. Lee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DanielTimLee/vue-tutorial/issues"
+  },
+  "homepage": "https://github.com/DanielTimLee/vue-tutorial#readme",
+  "dependencies": {
+    "vue": "^2.4.1"
+  }
+}
