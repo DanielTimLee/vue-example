@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App'
+import App from './App';
 
 new Vue({
   el: '#app', // <index.html> Selector will be replaced by template.
