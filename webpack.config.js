@@ -34,12 +34,12 @@ module.exports = {
         // Due to the vue-html-loader uses require(<resource>), need to pipe with file-loader or url-loader.
         // Size Limit. URL-Loader first, If overs limit, pipe to File-Loader
         test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader?name=./images/[name].[ext]'
+        loader: 'file-loader?name=./src/images/[name].[ext]'
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
