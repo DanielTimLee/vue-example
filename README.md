@@ -21,3 +21,12 @@ Install with your fav. package-manager.
 - `Babel` > preset: Latest, Stage-2
 - `Vue-Loader`
 - `file-loader` > Unknown Character Problem.
+
+
+### Event, Method naming Convention
+
+- `Methods for Emit Event` => `Noun + Verb` (todoDelete)
+- `Events` => with `on*` prefix (onTodoDelete)
+- `Methods for *real* action` => `Verb + Noun` (deleteTodo)
+
+Naming are based on `CRUD`
