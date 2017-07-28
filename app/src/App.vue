@@ -2,17 +2,17 @@
   <div id="app">
     <h1>Hello Vue!</h1>
     <img src="./assets/logo.png">
-    <todo></todo>
+    <todo-app></todo-app>
   </div>
 </template>
 
 <script>
-  import Todo from './components/todo.vue'
+  import TodoApp from './components/todo.vue'
 
   export default {
     name: 'app',
     components: {
-      Todo
+      TodoApp
     }
   }
 </script>

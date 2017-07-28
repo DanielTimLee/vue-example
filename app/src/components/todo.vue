@@ -1,13 +1,13 @@
 <template>
-  <div class="todo">
+  <div class="todoApp">
     <h1>Welcome to TODO App</h1>
 
-    <label for="new-todo">오늘 해야할 일은?</label>
+    <label for="new-todo">Things to do?</label>
     <input id="new-todo" v-model="newTodo" placeholder="Input TODO" @keyup.enter="createTodo()">
 
     <ul class="todo-list">
-      <todoList v-for="(item, idx) in todos" :key="idx" @onTodoDelete="deleteTodo"
-                v-bind:todo="{'item':item,'id':idx}"></todoList>
+      <todoList v-for="(item, idx) in todos" @onTodoDelete="deleteTodo"
+                :key="idx" :todo="{'item':item,'id':idx}"></todoList>
     </ul>
 
   </div>
@@ -16,14 +16,13 @@
 <script>
   import todoList from "./todoList.vue";
   const STORAGE_KEY = 'vuejs-todo';
-
   let storage = {
     fetch: () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
     save: (todos) => localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
   };
 
   export default {
-    name: 'todo',
+    name: 'todoApp',
     components: {todoList},
     data() {
       return {
@@ -32,10 +31,8 @@
       }
     },
     watch: {
-      todos: {
-        handler: function (todos) {
-          storage.save(todos);
-        }
+      todos: function (todos) {
+        storage.save(todos);
       }
     },
     methods: {
@@ -47,6 +44,11 @@
           })
         }
         this.newTodo = "";
+      },
+      updateTodo: function (idx, todo) {
+        if (todo.text && idx !== undefined) {
+          this.todos[idx] = todo
+        }
       },
       deleteTodo: function (idx) {
         if (idx !== undefined) {
