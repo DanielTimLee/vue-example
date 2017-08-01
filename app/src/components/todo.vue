@@ -1,20 +1,33 @@
 <template>
-  <div class="todoApp">
-    <h1>Welcome to TODO App</h1>
+  <div>
+    <header>
+      <h1>Things to do?</h1>
+      <input v-model="newTodo"
+             placeholder="Input TODO"
+             @keyup.enter="createTodo">
+    </header>
 
-    <label for="new-todo">Things to do?</label>
-    <input id="new-todo" v-model="newTodo" placeholder="Input TODO" @keyup.enter="createTodo()">
-
-    <ul class="todo-list">
-      <todoList v-for="(item, idx) in todos" @onTodoDelete="deleteTodo"
-                :key="idx" :todo="{'item':item,'id':idx}"></todoList>
+    <ul>
+      <li v-for="(todo, idx) in todos" :key="idx">
+        <div>
+          <input type="checkbox" v-model="todo.done">
+          <label v-if="todo != editedTodo"
+                 @dblclick="editTodo(todo)">{{todo.text}}</label>
+          <input type="text"
+                 v-model="todo.text"
+                 v-if="todo == editedTodo"
+                 v-todo-focus="todo == editedTodo"
+                 @blur="doneEdit(todo,idx)"
+                 @keyup.enter="doneEdit(todo,idx)">
+          <button @click="deleteTodo(idx)">X</button>
+        </div>
+      </li>
     </ul>
 
   </div>
 </template>
 
 <script>
-  import todoList from "./todoList.vue";
   const STORAGE_KEY = 'vuejs-todo';
   let storage = {
     fetch: () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
@@ -23,16 +36,29 @@
 
   export default {
     name: 'todoApp',
-    components: {todoList},
     data() {
       return {
         newTodo: '',
-        todos: storage.fetch()
+        todos: '',
+        editedTodo: null
       }
     },
+    mounted(){
+      this.todos = storage.fetch();
+    },
     watch: {
-      todos: function (todos) {
-        storage.save(todos);
+      todos: {
+        handler: function (todos) {
+          storage.save(todos)
+        },
+        deep: true
+      }
+    },
+    directives: {
+      'todo-focus': function (el, binding) {
+        if (binding.value) {
+          el.focus();
+        }
       }
     },
     methods: {
@@ -45,10 +71,12 @@
         }
         this.newTodo = "";
       },
-      updateTodo: function (idx, todo) {
-        if (todo.text && idx !== undefined) {
-          this.todos[idx] = todo
-        }
+      editTodo: function (todo) {
+        this.editedTodo = todo;
+      },
+      doneEdit: function (todo, idx) {
+        this.editedTodo = null;
+        this.todos[idx] = todo;
       },
       deleteTodo: function (idx) {
         if (idx !== undefined) {
